@@ -1,4 +1,103 @@
 // ----------------------------------------------------------------------------------------------
+// Question 3
+// Write an example to convert callback hell to promise.
+// ----------------------------------------------------------------------------------------------
+
+// CALLBACK
+
+function register(callback){   // PASSING A FUNCTION INSIDE THE PARAMETERS AS A CALLBACK
+    setTimeout(()=>{
+        console.log("register")
+        callback()
+    },2000)
+}
+function Email(callback){
+    setTimeout(()=>{
+        console.log("Email")
+        callback()
+    },1000)
+}
+function logins(callback){
+    setTimeout(()=>{
+        console.log("logins")
+        callback()
+    },100)
+}
+function userData(){
+    setTimeout(()=>{
+        console.log("userData")
+    },4000)
+}
+
+
+// callback hell as the code is going horizntaly it will create a structe like pyramid which is known as the pyramid of doom
+
+register(function(){    // PASSING THE FUNCTION INSIDE THE ARGUMENT AND ALL ARE DEPENDENT  ON EACH OTHER  AS IF ONE IS FAILED EXECUTION OF THE CODE WITH STOP AND GIVE US THE ERROR
+        
+         Email(function(){
+                 logins(function(){
+                        userData()
+                    })      
+          })
+  })
+  
+  // OUTPUT- 
+// register
+// logins
+// Email
+// userData
+
+
+// DRAWBACK - AS ITS HARD FOR US TO MANAGE AND REDABUILTY OF THE CODE IS HARD AND TO MAINTAIN THE CODE AND FINDING THE ERROR
+
+
+
+// HANDLNG CALLBACK HELL USDING PROMISES
+
+
+
+function register(){     // RETURN A PROMISE INSIDE THE FUNCTION
+    return new Promise((resolve,reject)=>{
+      setTimeout(()=>{
+        console.log("register")
+        resolve()
+    },2000)   
+    })
+   
+}
+function Email(){
+    setTimeout(()=>{
+        console.log("Email")
+    },1000)
+}
+function logins(){
+    setTimeout(()=>{
+        console.log("logins")
+    },100)
+}
+function userData(){
+    setTimeout(()=>{
+        console.log("userData")
+    },4000)
+}
+
+  register()   // USING .then TO CATCH THE VALUES AND CALLING THE FUNTION INSIDE AS THEN TAKE FUNCTINO AS A PARAMETERS AND ALL THE CODE RUN LINE BY LINE AS SINGLE LINE OR WE CAN synchronously
+      .then(Email)
+      .then(logins)
+      .then(userData)
+      .catch(error){
+      console.log(error)
+      }
+// OUTPUT = 
+// register
+// logins
+// Email
+// userData
+
+
+
+
+// ----------------------------------------------------------------------------------------------
 // Question 5
 // Extract the data from the API https://jsonplaceholder.typicode.com/users and print name, email id, phone number and company name from the extracted data
 // ----------------------------------------------------------------------------------------------
@@ -133,3 +232,40 @@ promise_all.then((value) => {
 
 
 // ----------------------------------------------------------------------------------------------
+// QUESTION 9 
+// ----------------------------------------------------------------------------------------------
+
+// Define a custom reduce function on the Array prototype
+Array.prototype.reduce2 = function (callback, initialValue) {
+  // Get the array on which the reduce method is called
+  const array = this;
+    
+  // If initialValue is provided, use it as the initial accumulator value; otherwise, use the first element of the array as the initial accumulator value
+  let accumulator
+    if(initialValue){
+      accumulator = initialValue
+  }
+    else{
+        accumulator = array[0]
+    }
+  // Start the iteration from the second element if initialValue is not provided
+
+    let startIndex 
+    if(initialValue){
+        startIndex=0
+    }else {
+        startIndex=1
+    }
+
+  // Iterate over the array elements from the start index
+  for (let index = startIndex; index < array.length; index++) {
+    // Call the callback function with the accumulator, current element, current index, and the original array
+    accumulator = callback(accumulator, array[index], index, array);
+  }
+
+  // Return the final accumulated value
+  return accumulator;
+};
+let array = [10,20,30,40,50,60]
+console.log(array.reduce2((acc,item)=>acc+item))
+// OUTPUT = 210

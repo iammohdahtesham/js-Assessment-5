@@ -42,17 +42,17 @@ register(function(){    // PASSING THE FUNCTION INSIDE THE ARGUMENT AND ALL ARE 
   })
   
   // OUTPUT- 
-// register
-// logins
+///register
 // Email
+// logins
 // userData
-
 
 // DRAWBACK - AS ITS HARD FOR US TO MANAGE AND REDABUILTY OF THE CODE IS HARD AND TO MAINTAIN THE CODE AND FINDING THE ERROR
 
 
 
 // HANDLNG CALLBACK HELL USDING PROMISES
+
 
 
 
@@ -66,34 +66,44 @@ function register(){     // RETURN A PROMISE INSIDE THE FUNCTION
    
 }
 function Email(){
+    return new Promise((resolve,reject)=>{
     setTimeout(()=>{
         console.log("Email")
+        resolve()
     },1000)
+    })
 }
 function logins(){
+    return new Promise((resolve,reject)=>{
     setTimeout(()=>{
         console.log("logins")
+        resolve()
     },100)
+    })
+    
 }
 function userData(){
+    return new Promise((resolve,reject)=>{
     setTimeout(()=>{
         console.log("userData")
+        resolve()
     },4000)
+    })
 }
 
   register()   // USING .then TO CATCH THE VALUES AND CALLING THE FUNTION INSIDE AS THEN TAKE FUNCTINO AS A PARAMETERS AND ALL THE CODE RUN LINE BY LINE AS SINGLE LINE OR WE CAN synchronously
       .then(Email)
       .then(logins)
       .then(userData)
-      .catch(error){
-      console.log(error)
-      }
-// OUTPUT = 
-// register
-// logins
-// Email
-// userData
+      .catch((error)=>{
+          console.log(error)
+      })
 
+ // OUTPUT - 
+//register
+// Email
+// logins
+// userData
 
 
 
@@ -150,25 +160,7 @@ let fetchData = async ()=>{    // creating the function Expression and make it a
 // Phone Number:1-477-935-8478 x6430
 // Company Name:Considine-Lockman
 // *********
-// Name:Kurtis Weissnat
-// E-mail :Telly.Hoeger@billy.biz
-// Phone Number:210.067.6132
-// Company Name:Johns Group
-// *********
-// Name:Nicholas Runolfsdottir V
-// E-mail :Sherwood@rosamond.me
-// Phone Number:586.493.6943 x140
-// Company Name:Abernathy Group
-// *********
-// Name:Glenna Reichert
-// E-mail :Chaim_McDermott@dana.io
-// Phone Number:(775)976-6794 x41206
-// Company Name:Yost and Sons
-// *********
-// Name:Clementina DuBuque
-// E-mail :Rey.Padberg@karina.biz
-// Phone Number:024-648-3804
-// Company Name:Hoeger LLC
+
 // ----------------------------------------------------------------------------------------------
 // Question 6 
 // Explain and write a code snippet for the following:-
